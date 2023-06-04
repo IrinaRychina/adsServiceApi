@@ -1,23 +1,29 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from rest_framework import generics
+from django.contrib.auth.decorators import login_required
+
 from .models import Ad
-from .serializers import AdSerializer
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.filters import OrderingFilter
+from .forms import AdForm
+from notifications.utils.notifications import create_notification
 
-class AdPagination(PageNumberPagination):
-    page_size = 10
-    page_size_query_param = 'page_size'
-    max_page_size = 100
 
-class AdList(generics.ListCreateAPIView):
-    queryset = Ad.objects.all()
-    serializer_class = AdSerializer
-    pagination_class = AdPagination
-    filter_backends = [OrderingFilter]
-    ordering_fields = ['created_at']
+@login_required
+def create_ad(request):
+    if request.method != 'POST':
+        form = AdForm()
+        return render(request, 'create_ad.html', {'form': form})
 
-class AdDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Ad.objects.all()
-    serializer_class = AdSerializer
+    form = AdForm(request.POST)
+    if not form.is_valid():
+        return render(request, 'create_ad.html', {'form': form})
+
+    ad = form.save()
+    if ad:
+        create_notification(request.user, ad, "Ваше объявление было успешно создано!")
+
+    form = AdForm()
+    return render(request, 'ads/create_ad.html', {'form': form})
+
+
+def ad_list(request):
+    ads = Ad.objects.all()
+    return render(request, 'ads/ad_list.html', {'ads': ads})
