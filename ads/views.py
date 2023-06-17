@@ -15,13 +15,15 @@ def home(request):
 def create_ad(request):
     if request.method != 'POST':
         form = AdForm()
-        return render(request, 'create_ad.html', {'form': form})
+        return render(request, 'ads/create_ad.html', {'form': form})
 
     form = AdForm(request.POST)
     if not form.is_valid():
-        return render(request, 'create_ad.html', {'form': form})
+        return render(request, 'ads/create_ad.html', {'form': form})
 
     ad = form.save()
+    ad.user = request.user
+    ad.save()
     if ad:
         create_notification(request.user, ad, "Ваше объявление было успешно создано!")
 
@@ -31,6 +33,11 @@ def create_ad(request):
 
 def ad_list(request):
     ads = Ad.objects.all()
+    return render(request, 'ads/ad_list.html', {'ads': ads})
+
+@login_required
+def ad_list_authorized(request):
+    ads = Ad.objects.filter(user=request.user)
     return render(request, 'ads/ad_list.html', {'ads': ads})
 
 def register(request):
