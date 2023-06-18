@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'ads',
     'notifications',
     'rest_framework',
-    'drf_yasg'
+    'drf_yasg',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [

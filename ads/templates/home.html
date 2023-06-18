@@ -1,9 +1,36 @@
-<html>
-<head>
-    <title>Главная страница</title>
-</head>
-<body>
-    <h1>Добро пожаловать на главную страницу!</h1>
-    <!-- Другие элементы страницы -->
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Заголовок -->
+<div class="container mt-4">
+    <h1>Добро пожаловать на сайт с объявлениями</h1>
+    <p>Здесь вы можете размещать свои объявления и просматривать объявления других пользователей.</p>
+</div>
+
+<!-- Блок с объявлениями -->
+<div class="container mt-4">
+    <h2>Недавние объявления</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <img src="объявление1.jpg" class="card-img-top" alt="Объявление 1">
+                <div class="card-body">
+                    <h5 class="card-title">Заголовок объявления 1</h5>
+                    <p class="card-text">Описание объявления 1</p>
+                    <a href="#" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <img src="объявление2.jpg" class="card-img-top" alt="Объявление 2">
+                <div class="card-body">
+                    <h5 class="card-title">Заголовок объявления 2</h5>
+                    <p class="card-text">Описание объявления 2</p>
+                    <a href="#" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

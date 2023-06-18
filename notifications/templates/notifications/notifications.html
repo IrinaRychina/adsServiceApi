@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
+{% block title %}Уведомления{% endblock %}
+
 {% block content %}
-  <h1>Notifications</h1>
-  <ul>
-    {% for notification in notifications %}
-      <li>{{ notification.content }}</li>
-    {% empty %}
-      <li>No notifications.</li>
-    {% endfor %}
-  </ul>
+    <div class="container">
+        <h1>Уведомления</h1>
+        <ul class="list-group">
+            {% for notification in notifications %}
+                <li class="list-group-item">{{ notification.content }}</li>
+            {% empty %}
+                <li class="list-group-item">No notifications.</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

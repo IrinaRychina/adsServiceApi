@@ -1,9 +1,18 @@
-<!-- ad_list.html -->
-{% for ad in ads %}
-    <div>
-        <h3>{{ ad.title }}</h3>
-        <p>{{ ad.description }}</p>
-        <p>{{ ad.price }}</p>
-        <!-- Дополнительные поля объявления... -->
+{% extends 'base.html' %}
+
+{% block title %}Список объявлений{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Список объявлений</h1>
+        {% for ad in ads %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h3 class="card-title">{{ ad.title }}</h3>
+                <p class="card-text">{{ ad.description }}</p>
+                <p class="card-text">Цена: {{ ad.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-{% endfor %}
+{% endblock %}
