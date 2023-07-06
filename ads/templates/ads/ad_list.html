@@ -3,16 +3,42 @@
 {% block title %}Список объявлений{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Список объявлений</h1>
-        {% for ad in ads %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h3 class="card-title">{{ ad.title }}</h3>
-                <p class="card-text">{{ ad.description }}</p>
-                <p class="card-text">Цена: {{ ad.price }}</p>
-            </div>
+<div class="container">
+    <h1>Список объявлений</h1>
+    {% for ad in page_obj %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="card-title">{{ ad.title }}</h3>
+            <p class="card-text">{{ ad.description }}</p>
+            <p class="card-text">Цена: {{ ad.price }}</p>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+
+    <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
 {% endblock %}
