@@ -59,7 +59,7 @@ def ad_list_authorized(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'ads/ad_list.html', {'page_obj': page_obj})
 
-def register(request):
+def user_register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
