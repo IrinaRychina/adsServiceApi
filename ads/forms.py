@@ -25,6 +25,17 @@ class RegistrationForm(forms.Form):
 
         return username
 
+    def save_user(self):
+        username = self.cleaned_data['username']
+        email = self.cleaned_data['email']
+        password = self.cleaned_data['password']
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        # Дополнительная обработка сохранения пользователя
+        # ...
+
+        return user
+
 
 class AdForm(forms.ModelForm):
     class Meta:
