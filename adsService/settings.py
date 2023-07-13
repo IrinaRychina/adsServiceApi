@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ads.middleware.authorization_middleware.AuthorizationMiddleware'
 ]
 
 ROOT_URLCONF = 'adsService.urls'
